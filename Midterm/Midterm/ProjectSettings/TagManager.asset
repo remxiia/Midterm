@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - Item
+  - Exit door
+  - Door
   layers:
   - Default
   - TransparentFX

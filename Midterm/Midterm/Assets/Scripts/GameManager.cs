@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     
     public float textTimeReset;
     float textTime;
-    bool countDown = false;
+    //bool countDown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         //TextBG.SetActive(true);
         TextObj.SetActive(true);
         //TextComponent.SetActive = textToShow;
-        countDown = true;
+        //countDown = true;
     }
 
 }
