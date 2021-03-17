@@ -21,10 +21,11 @@ public class DoorBehavior : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.tag == "Wall"){
-            Debug.Log("hit a door");
-        } else if(other.gameObject.tag == "Exit door"){
-            SceneManager.LoadScene("GameOver");
+        if(other.gameObject.tag == "Exit door"){
+            Debug.Log("exit was hit");
+            Destroy(gameObject);
+            SceneManager.LoadScene(sceneName:"GameOver");
         }
+
     }
 }

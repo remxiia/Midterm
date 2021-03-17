@@ -5,22 +5,35 @@ using UnityEngine.UI; //need this so I can reference Text
 
 public class PlayerBehavior : MonoBehaviour
 {
+
+    //personal note: probably going to have to go through this and cut what I'm not using --------------------------------------
     
     public Text KeyText; //gonna need this to get text to show up to the game screen, I think
     public float speed; //honestly not sure if I'm gonna need this, might get deleted later
+    public float framerate; //how many frames p/second
+
     public Sprite walkSprite;
     private bool stopMovement = false;
     //private bool hitItem = false;
     private Vector3 nextPos;
     public GameManager gameManager; //lets me reference the game manager
+    private collisionDir currentDir;
 
     public float sightDist;
 
     public enum directionState{ //def gonna need this, gotta get my char to move somehow
-        up,
-        down,
-        left,
-        right,
+        up, 
+        down, 
+        left, 
+        right, 
+        none
+    }
+
+    private enum collisionDir { //the relative position of the last collision
+        up, 
+        down, 
+        left, 
+        right, 
         none
     }
 
@@ -107,11 +120,42 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other){
-        if(other.gameObject.tag == "Wall"){
-            Debug.Log("touched the wall");
-        } else {
-            Debug.Log("touched an item");
+    void OnCollisionEnter2D(Collision2D other){ //this is going to figure out which direction to push the player back when they collide with something
+        switch(currentState){
+            case directionState.up:
+                currentDir = collisionDir.up;
+            break;
+            case directionState.down:
+                currentDir = collisionDir.down;
+            break;
+            case directionState.left:
+                currentDir = collisionDir.left;
+            break;
+            case directionState.right:
+                currentDir = collisionDir.right;
+            break;
+            default:
+            break;
+        }
+    }
+
+    //okay we're gonna try this move code instead to see if we can fix all the collision issues:
+    void OnCollisionStay2D(Collision2D other){      
+        switch(currentDir){
+            case collisionDir.up:
+                transform.Translate(Vector3.down * Time.deltaTime * speed);
+            break;
+            case collisionDir.down:
+                transform.Translate(Vector3.up * Time.deltaTime * speed);
+            break;
+            case collisionDir.right:
+                transform.Translate(Vector3.left * Time.deltaTime * speed);
+            break;
+            case collisionDir.left:
+                transform.Translate(Vector3.right * Time.deltaTime * speed);
+            break;
+            default:
+            break;
         }
     }
 
