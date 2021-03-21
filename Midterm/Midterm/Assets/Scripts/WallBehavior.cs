@@ -19,10 +19,10 @@ public class WallBehavior : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if(other.gameObject.tag == "Wall"){
-            Debug.Log("congratulations, you hit a wall.");
-        }
-    }
+    // void OnCollisionEnter2D(Collision2D other)
+    // {
+    //     if(other.gameObject.tag == "Wall"){
+    //         Debug.Log("congratulations, you hit a wall.");
+    //     }
+    // }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject TextBG;
     public GameObject TextObj;
     public Text TextComponent;
+    public static int collisionCount = 0;
     
     public float textTimeReset;
     float textTime;
@@ -36,6 +38,14 @@ public class GameManager : MonoBehaviour
         TextObj.SetActive(true);
         //TextComponent.SetActive = textToShow;
         //countDown = true;
+    }
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {   
+        if(other.gameObject.tag == "Exit door"){
+            Destroy(gameObject);
+            SceneManager.LoadScene(sceneName:"GameOver"); //after you "talk" to the four ghosts, the door should take you to the game over screen
+        }
     }
 
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; //need this so I can reference Text
+using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerBehavior : MonoBehaviour
     public float framerate; //how many frames p/second
 
     public Sprite walkSprite;
-    private bool stopMovement = false;
+    //private bool stopMovement = false;
     //private bool hitItem = false;
     private Vector3 nextPos;
     public GameManager gameManager; //lets me reference the game manager
@@ -52,7 +53,6 @@ public class PlayerBehavior : MonoBehaviour
     {
         myCollider = gameObject.GetComponent<BoxCollider2D>();
         myRenderer = gameObject.GetComponent<SpriteRenderer>();
-        firstText.enabled = false; 
 
     }
 
@@ -156,6 +156,12 @@ public class PlayerBehavior : MonoBehaviour
             break;
             default:
             break;
+        }
+
+        if(other.gameObject.tag == "Exit door"){
+            Debug.Log("exit was hit");
+            Destroy(gameObject);
+            SceneManager.LoadScene(sceneName:"GameOver");
         }
     }
 
