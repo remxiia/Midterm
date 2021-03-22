@@ -7,24 +7,30 @@ using UnityEngine.SceneManagement;
 public class PlayerBehavior : MonoBehaviour
 {
 
-    //personal note: probably going to have to go through this and cut what I'm not using --------------------------------------
-    
+    //component ref(s)
     SpriteRenderer sprRenderer; //renders whatever the other object is 
+    BoxCollider2D myCollider;
+    SpriteRenderer myRenderer;
+    Animator myAnimator; //will need for getting the sprite animations to run once I have those ready to go
 
-    //public Text KeyText; //gonna need this to get text to show up to the game screen, I think
+    public directionState currentState = directionState.none; //currently not moving (I think....)
+    public static bool faceLeft = true; //start the game facing left (hopefully)
+
     public float speed; //honestly not sure if I'm gonna need this, might get deleted later
-    //public float framerate; //how many frames p/second
 
     //public Sprite walkSprite;
-    //private Vector3 nextPos;
+    //private Vector3 nextPos; //will need these when it's time to animate so I'll leave them here
     public GameManager gameManager; //lets me reference the game manager
-    
-    private collisionDir currentDir;
 
+    //all of my lovely game objects for pulling up and getting rid of text
     public GameObject introText;
     public GameObject journalText;
     public GameObject boneText;
     public GameObject spoopyText;
+    public GameObject ghostOne;
+    public GameObject ghostTwo;
+    public GameObject ghostThree;
+    public GameObject ghostFour;
 
     public enum directionState{ //def gonna need this, gotta get my char to move somehow
         up, 
@@ -42,13 +48,7 @@ public class PlayerBehavior : MonoBehaviour
         none
     }
 
-    //component ref(s)
-    BoxCollider2D myCollider;
-    SpriteRenderer myRenderer;
-    Animator myAnimator; //will need for getting the sprite animations to run once I have those ready to go
-
-    public directionState currentState = directionState.none; //currently not moving (I think....)
-    public static bool faceLeft = true; //start the game facing left (hopefully)
+    private collisionDir currentDir;
 
     private Text firstText; //****SHOULD help to start getting the text to show on screen when the char bumps into an obj
 
@@ -169,13 +169,25 @@ public class PlayerBehavior : MonoBehaviour
             boneText.SetActive(true);
         } else if(other.gameObject.tag == "Spoopy Text"){
             spoopyText.SetActive(true);
+        } else if(other.gameObject.tag == "First ghost"){
+            ghostOne.SetActive(true);
+        } else if(other.gameObject.tag == "Second ghost"){
+            ghostTwo.SetActive(true);
+        } else if(other.gameObject.tag == "Third ghost"){
+            ghostThree.SetActive(true);
+        } else if(other.gameObject.tag == "Fourth ghost"){
+            ghostFour.SetActive(true);
         } else {
             introText.SetActive(false);
             journalText.SetActive(false);
             boneText.SetActive(false);
             spoopyText.SetActive(false);
-        } //OKAY there is probably a better way to do this but since I've struggled with this for more than eight hours now I'm going to keep it and be grateful it works
+            ghostOne.SetActive(false);
+            ghostTwo.SetActive(false);
+            ghostThree.SetActive(false);
+            ghostFour.SetActive(false);
+        } //OKAY there is probably a much better way to do this but since I've struggled with this for more than eight hours now I'm going to keep it and I will just be grateful it works
     } //Basically I have public gameObjects for the text of each of the items with text; they each reference a box collider over the object they correspond to...
-    //which, when triggered, show the text. once the item is collected, the text goes away.
+    //which, when triggered, show the text. once the item is collected, the text goes away. (there has to be a seperate box collider since it has to be set to IsTrigger)
 
 }

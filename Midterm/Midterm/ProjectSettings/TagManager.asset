@@ -14,6 +14,10 @@ TagManager:
   - Second Item Text
   - Third Item Text
   - Spoopy Text
+  - First ghost
+  - Second ghost
+  - Third ghost
+  - Fourth ghost
   layers:
   - Default
   - TransparentFX
