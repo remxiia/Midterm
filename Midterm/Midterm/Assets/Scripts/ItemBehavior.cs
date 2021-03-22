@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 //this might completely fail but let's give it a try
 //IT DIDNT HALLELUJAH okay time to make some text
-//...making text was a failure. gonna try again after I rewatch the lecture don't forget to do that
+//...making text *was* a failure. gonna try again after I rewatch the lecture don't forget to do that
 
 public class ItemBehavior : MonoBehaviour
 

@@ -9,18 +9,22 @@ public class PlayerBehavior : MonoBehaviour
 
     //personal note: probably going to have to go through this and cut what I'm not using --------------------------------------
     
-    public Text KeyText; //gonna need this to get text to show up to the game screen, I think
-    public float speed; //honestly not sure if I'm gonna need this, might get deleted later
-    public float framerate; //how many frames p/second
+    SpriteRenderer sprRenderer; //renders whatever the other object is 
 
-    public Sprite walkSprite;
-    //private bool stopMovement = false;
-    //private bool hitItem = false;
-    private Vector3 nextPos;
+    //public Text KeyText; //gonna need this to get text to show up to the game screen, I think
+    public float speed; //honestly not sure if I'm gonna need this, might get deleted later
+    //public float framerate; //how many frames p/second
+
+    //public Sprite walkSprite;
+    //private Vector3 nextPos;
     public GameManager gameManager; //lets me reference the game manager
+    
     private collisionDir currentDir;
 
-    public float sightDist;
+    public GameObject introText;
+    public GameObject journalText;
+    public GameObject boneText;
+    public GameObject spoopyText;
 
     public enum directionState{ //def gonna need this, gotta get my char to move somehow
         up, 
@@ -53,23 +57,11 @@ public class PlayerBehavior : MonoBehaviour
     {
         myCollider = gameObject.GetComponent<BoxCollider2D>();
         myRenderer = gameObject.GetComponent<SpriteRenderer>();
-
     }
 
-    void Update() //following last week's tutorial just to see if I can get a raycast working because I am *struggling*
+    void Update() 
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, nextPos, sightDist); //creating a ray that's being cast in the direction of the position we're moving towards
-        //only see within a certain distance, which is set in the inspector
-        if(hit.collider != null){ //if the ray reached something,
-            if(hit.collider.tag == "Item"){//and if the thing it reached is an Item,
-                Debug.Log("Hit the item with the ray"); //show the text on the next line.
-                gameManager.ShowText("Oh dear, you really shouldn't be here... But since you are, go and gather the objects scattered about. You'll need them to find out what happened here.");
-            } //....none of this is working, the ray isn't hitting the Item HELPs
-            //is it because I delete the object when it's hit? but the ray should reach the item before the player does
-        }
-        //} else{ //otherwise if the ray hit nothing,
-        //    stopMovement = false;//this stays false
-        //}  I THINK I SOMEHOW NEED TO ERASE THE TEXT HERE, OR HAVE IT SET SOMETHING THAT CONTAINS THE TEXT TO FALSE SO I CAN HAVE IT CHANGE/ERASE IT ON SCREEN
+        
     }
 
     void FixedUpdate() //fixedUpdate stops the jittery-walking effect
@@ -137,6 +129,7 @@ public class PlayerBehavior : MonoBehaviour
             default:
             break;
         }
+
     }
 
     //okay we're gonna try this move code instead to see if we can fix all the collision issues:
@@ -164,5 +157,25 @@ public class PlayerBehavior : MonoBehaviour
             SceneManager.LoadScene(sceneName:"GameOver");
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other){
+        GameObject otherObj = other.gameObject;
+        sprRenderer = otherObj.GetComponent<SpriteRenderer>();
+        if(other.gameObject.tag == "First Item Text"){
+            introText.SetActive(true);
+        } else if(other.gameObject.tag == "Second Item Text"){
+            journalText.SetActive(true);
+        } else if(other.gameObject.tag == "Third Item Text"){
+            boneText.SetActive(true);
+        } else if(other.gameObject.tag == "Spoopy Text"){
+            spoopyText.SetActive(true);
+        } else {
+            introText.SetActive(false);
+            journalText.SetActive(false);
+            boneText.SetActive(false);
+            spoopyText.SetActive(false);
+        } //OKAY there is probably a better way to do this but since I've struggled with this for more than eight hours now I'm going to keep it and be grateful it works
+    } //Basically I have public gameObjects for the text of each of the items with text; they each reference a box collider over the object they correspond to...
+    //which, when triggered, show the text. once the item is collected, the text goes away.
 
 }
