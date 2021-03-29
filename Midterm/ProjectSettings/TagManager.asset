@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Item
+  - Exit door
+  - Door
+  - Ghost
+  - First Item
+  - First Item Text
+  - Second Item Text
+  - Third Item Text
+  - Spoopy Text
+  - First ghost
+  - Second ghost
+  - Third ghost
+  - Fourth ghost
   layers:
   - Default
   - TransparentFX
@@ -13,7 +27,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Collisions
   - 
   - 
   - 
